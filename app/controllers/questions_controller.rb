@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.all.includes(:user)
 
+    @articles = @articles.tagged_with(params[:tag]) if params[:tag].present?
     @questions = @questions.asked_by(params[:author]) if params[:author].present?
 
     @questions_count = @questions.count
@@ -52,6 +53,6 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, tag_list: [])
   end
 end
