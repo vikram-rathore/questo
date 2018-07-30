@@ -14,5 +14,18 @@ class User < ActiveRecord::Base
               exp: 60.days.from_now.to_i },
              Rails.application.secrets.secret_key_base)
   end
+
+  def favorite(question)
+    favorites.find_or_create_by(question: question)
+  end
+
+  def unfavorite(question)
+    favorites.where(question: question).destroy_all
+    question.reload
+  end
+
+  def favorited?(question)
+    favorites.find_by(question_id: question.id).present?
+  end
   
 end
