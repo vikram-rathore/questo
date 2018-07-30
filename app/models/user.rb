@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
 
   has_many :questions, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   def generate_jwt
     JWT.encode({ id: id,
