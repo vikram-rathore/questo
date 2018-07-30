@@ -4,8 +4,9 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.all.includes(:user)
 
-    @articles = @articles.tagged_with(params[:tag]) if params[:tag].present?
+    @questions = @questions.tagged_with(params[:tag]) if params[:tag].present?
     @questions = @questions.asked_by(params[:author]) if params[:author].present?
+    @questions = @questions.favorited_by(params[:favorited]) if params[:favorited].present?
 
     @questions_count = @questions.count
 
