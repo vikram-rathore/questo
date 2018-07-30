@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :profiles, param: :username, only: [:show]
     resources :questions, param: :slug, except: [:edit, :new] do
       resource :favorite, only: [:create, :destroy]
+      resources :answers, only: [:create, :index, :destroy]
     end
     resources :tags, only: [:index]
   end
