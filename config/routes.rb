@@ -5,7 +5,9 @@ Rails.application.routes.draw do
                       path_names: { sign_in: :login }
 
     resource :user, only: [:show, :update]
-    resources :profiles, param: :username, only: [:show]
+    resources :profiles, param: :username, only: [:show] do
+      resource :follow, only: [:create, :destroy]
+    end
     resources :questions, param: :slug, except: [:edit, :new] do
       resource :favorite, only: [:create, :destroy]
       resources :answers, only: [:create, :index, :destroy]
