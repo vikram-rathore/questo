@@ -52,6 +52,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def feed
+    @questions = Question.includes(:user).where(user: current_user.following_users)
+
+    @questions_count = @questions.count
+
+    @questions = @questions.order(created_at: :desc).offset(params[:offset] || 0).limit(params[:limit] || 20)
+
+    render :index
+  end
+
   private
   def question_params
     params.require(:question).permit(:title, :body, tag_list: [])

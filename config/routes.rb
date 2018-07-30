@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :questions, param: :slug, except: [:edit, :new] do
       resource :favorite, only: [:create, :destroy]
       resources :answers, only: [:create, :index, :destroy]
+      get :feed, on: :collection
     end
     resources :tags, only: [:index]
   end
