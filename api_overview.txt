@@ -1,0 +1,99 @@
+- Register
+    POST: /api/users
+    expects:
+      {
+        "user": {
+          "email": "...",
+          "password": "...",
+          "username": "..."
+        }
+      }
+
+- Login
+    POST: /api/users/login
+    expects:
+      {
+        "user": {
+          "email": "...",
+          "password": "..."
+        }
+      }
+
+- Update User
+    PUT: /api/user
+    expects:
+      {
+        "user": {
+          "email": "..."
+        }
+      }
+
+- Get Current User (Requires Auth)
+    GET: /api/user
+
+- View any User Profile
+    GET: /api/profiles/<username>
+
+- Follow a user (Requires Auth)
+    POST: /api/profiles/<username>/follow
+
+- UnFollow a user (Requires Auth)
+    DELETE: /api/profiles/<username>/follow
+
+- Questions list
+    GET: /api/questions
+    PARAMS: ?tag=rails
+            ?author=johndoe
+            ?favorited=johndoe
+
+- Create Question (Requires Auth)
+    POST: /api/questions
+    expects:
+      {
+        "question": {
+          "title": "...required...",
+          "body": "...optional...",
+          "tagList": ["...optional...", "...optional..."]
+        }
+      }
+
+- Retrieve Question details
+    GET: /api/questions/<question_slug>
+
+- Update Question (Requires Auth & ownership)
+    PUT: /api/questions/<question_slug>
+    expects:
+      {
+        "question": {
+          "title": "...optional...",
+          "body": "...optional...",
+          "tagList": ["...optional...", "...optional..."]
+        }
+      }
+
+- Get all tags
+    GET: /api/tags
+
+- Delete Question (Requires Auth & ownership)
+    DELETE: /api/questions/<question_slug>
+
+- Add question to favorites (Requires Auth)
+    POST: /api/questions/favorite
+
+- Remove question from favorites (Requires Auth)
+    DELETE: /api/questions/favorite
+
+- Get answers posted for a question
+    GET: /api/questions/<question_slug>/answers
+
+- Post answer for a question (Requires Auth)
+    POST: /api/questions/<question_slug>/answers
+    expects:
+      {
+        "answer": {
+          "body": "This is a useless answer"
+        }
+      }
+
+- Delete an answer for a question (Requires Auth and ownership)
+    DELETE: /api/questions/<question_slug>/answers/<answer_id>
